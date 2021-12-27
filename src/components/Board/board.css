@@ -1,0 +1,10 @@
+.tile {
+    width: 100px;
+    height: 100px;
+    background-color: cornflowerblue;
+    border: 2px solid white;
+}
+
+.blank {
+    opacity: 0;
+}

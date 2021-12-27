@@ -1,3 +1,11 @@
+# The Sliding Tiles Puzzle
+
+Arrange the tiles by sliding it. Win the game when all the tiles are in the correct order.
+This project is open for public, please let me know if you want to fully/partially take the part of the implemented code and logic.
+
+Cheers.
+
+***
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
