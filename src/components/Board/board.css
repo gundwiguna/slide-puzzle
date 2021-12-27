@@ -1,10 +1,35 @@
+.board {
+    width: 600px;
+}
+
 .tile {
     width: 100px;
     height: 100px;
     background-color: cornflowerblue;
     border: 2px solid white;
+    transition: transform 0.3s ease;
+}
+
+.tile-container {
+    height: 100px;
 }
 
 .blank {
     opacity: 0;
+}
+
+.blankRight {
+    transform: translateX(-100%);
+}
+
+.blankLeft {
+    transform: translateX(100%);
+}
+
+.blankUp {
+    transform: translateY(100%);
+}
+
+.blankDown {
+    transform: translateY(-100%);
 }

@@ -90,6 +90,11 @@ function Board (props) {
         checkWin(newTiles);
     }
 
+    function getTransitionClassName(index) {
+        const id = possibleTiles.indexOf(index);
+        return 'blank' + possibleMoves[id];
+    }
+
     useEffect(function () {
         randomizeTile();
     }, []);
@@ -100,15 +105,17 @@ function Board (props) {
             <h3>Possible moves: {possibleMoves.join(', ')}</h3>
             <h3>Possible indexes: {possibleTiles.join(', ')}</h3>
             <h3>WIN: {win ? 'TRUE' : 'FALSE'}</h3>
-            <Row>
+            <Row className="board">
                 {tiles.map((val, key) => <Col 
                     key={key} 
                     xs={{ span: 2 }} 
-                    className={'p-0 ' + ((key+1)%5 === 0 ? 'me-1' : '')}>
+                    className={'p-0 position-relative tile-container ' + ((key+1)%5 === 0 ? 'me-1' : '')}>
                         <Tile 
                         val={val}
                         index={key} 
                         isBlank={key === blankIndex}
+                        transitionClass={getTransitionClassName(key)}
+                        disabled={possibleTiles.indexOf(key) === -1}
                         clickFn={clickTileHanler} />
                     </Col>)}
             </Row>
