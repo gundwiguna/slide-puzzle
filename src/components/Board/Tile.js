@@ -16,7 +16,7 @@ function Tile (props) {
         }, transitionDuration);
     }
     return (<div className={'tile position-absolute d-flex align-items-center justify-content-center ' + 
-                `${isBlank && !transitioning && 'blank' || ''} ${transitioning && transitionClass || ''}`}
+                `${(isBlank && !transitioning && 'blank') || ''} ${(transitioning && transitionClass) || ''}`}
                 style={{transition: `transform ${transitionDuration/1000}s ease`, backgroundColor: tileColor}}
                 onClick={() => doTransition(index)}>
         {/* ({index}) */}
