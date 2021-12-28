@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import './board.css';
 import Tile from "./Tile";
 
-function Board (props) {
+function Board () {
     const tilesLength = 25;
     const [tiles, setTiles] = useState([]);
     const [blankIndex, setBlankIndex] = useState(tilesLength - 1);
@@ -112,15 +112,15 @@ function Board (props) {
 
     return (<div>
         <Container>
-        <div className="d-flex flex-column align-items-center mt-3">
-            <h2>Slide Puzzle Game</h2>
+        <div style={{minHeight: '95vh'}} className="d-flex flex-column align-items-center mt-3">
+            <h2 className="m-0">Slide Puzzle Game</h2>
             {/* <h1>Board Component, Blank = {blankIndex}</h1>
             <h3>Possible moves: {possibleMoves.join(', ')}</h3>
             <h3>Possible indexes: {possibleTiles.join(', ')}</h3> */}
             {win && <h3>YOU WIN</h3>}
             <Row className="w-100 justify-content-center">
                 <Col xs="12" md="9" lg="7" xl="4">
-                    <Row className="board justify-content-center" ref={ref}>
+                    <Row className="board justify-content-center pt-2 pb-4" ref={ref}>
                         {tiles.map((val, key) => <Col 
                             key={key} 
                             xs={{ span: 2 }}
@@ -138,6 +138,9 @@ function Board (props) {
                     </Row>
                 </Col>
             </Row>
+            <div className="mt-auto links-container">
+                <a href="https://github.com/gundwiguna/slide-puzzle" target="_blank">Source</a> • <a href="https://www.linkedin.com/in/anggun-dwiguna-53197511a/" target="_blank">Anggun Dwiguna</a>
+            </div>
         </div>
         </Container>
     </div>);
