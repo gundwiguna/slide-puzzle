@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import './board.css';
 import Tile from "./Tile";
@@ -10,11 +10,13 @@ function Board (props) {
     const [possibleTiles, setPossibleTiles] = useState([]);
     const [possibleMoves, setPossibleMoves] = useState([]);
     const [win, setWin] = useState(false);
+    const [tileHeight, setTileHeight] = useState(100);
+    const colors = ['#4285f4', '#ea4335', '#fbbc05', '#34a853', '#663399'];
 
     function randomizeTile() {
         let tileNumbers = [];
         while (tileNumbers.length < tilesLength) {
-            let randomNumber = Math.floor((Math.random() * 100)) % tilesLength;
+            let randomNumber = (Math.floor((Math.random() * 100)) % tilesLength) + 1;
             if (tileNumbers.indexOf(randomNumber) === -1) {
                 tileNumbers.push(randomNumber);
             }
@@ -26,7 +28,7 @@ function Board (props) {
         // }
         // tileNumbers.push(24, 23);
 
-        let tempBlankIndex = tileNumbers.indexOf(tilesLength-1);
+        let tempBlankIndex = tileNumbers.indexOf(tilesLength);
         setBlankIndex(tempBlankIndex);
         setTiles(tileNumbers);
         calculatePossibleMoves(tempBlankIndex);
@@ -99,26 +101,44 @@ function Board (props) {
         randomizeTile();
     }, []);
 
+    useEffect(function () {
+        const tileRef = ref.current && ref.current.querySelector('.tile-container');
+        const newTileHeight = tileRef && tileRef.offsetWidth;
+        if (newTileHeight && newTileHeight !== tileHeight) {
+            setTileHeight(newTileHeight);
+        }
+    }, [tiles])
+
+    const ref = React.createRef();
     return (<div>
-        <Container fluid>
-            <h1>Board Component, Blank = {blankIndex}</h1>
+        <Container>
+        <div className="d-flex flex-column align-items-center mt-3">
+            <h2>Slide Puzzle Game</h2>
+            {/* <h1>Board Component, Blank = {blankIndex}</h1>
             <h3>Possible moves: {possibleMoves.join(', ')}</h3>
             <h3>Possible indexes: {possibleTiles.join(', ')}</h3>
-            <h3>WIN: {win ? 'TRUE' : 'FALSE'}</h3>
-            <Row className="board">
-                {tiles.map((val, key) => <Col 
-                    key={key} 
-                    xs={{ span: 2 }} 
-                    className={'p-0 position-relative tile-container ' + ((key+1)%5 === 0 ? 'me-1' : '')}>
-                        <Tile 
-                        val={val}
-                        index={key} 
-                        isBlank={key === blankIndex}
-                        transitionClass={getTransitionClassName(key)}
-                        disabled={possibleTiles.indexOf(key) === -1}
-                        clickFn={clickTileHanler} />
-                    </Col>)}
+            <h3>WIN: {win ? 'TRUE' : 'FALSE'}</h3> */}
+            <Row className="w-100 justify-content-center">
+                <Col xs="12" md="9" lg="7" xl="4">
+                    <Row className="board justify-content-center" ref={ref}>
+                        {tiles.map((val, key) => <Col 
+                            key={key} 
+                            xs={{ span: 2 }}
+                            style={{height: `${tileHeight}px`}}
+                            className={'p-0 position-relative tile-container ' + ((key+1)%5 === 0 ? 'me-1' : '')}>
+                                <Tile
+                                val={val}
+                                index={key}
+                                isBlank={key === blankIndex}
+                                transitionClass={getTransitionClassName(key)}
+                                disabled={possibleTiles.indexOf(key) === -1}
+                                tileColor={colors[val%5]}
+                                clickFn={clickTileHanler} />
+                            </Col>)}
+                    </Row>
+                </Col>
             </Row>
+        </div>
         </Container>
     </div>);
 }

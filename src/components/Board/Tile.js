@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 function Tile (props) {
-    const {val, index, isBlank, clickFn, transitionClass, disabled} = props;
+    const {val, index, isBlank, clickFn, transitionClass, disabled, tileColor} = props;
     const [transitioning, setTransitioning] = useState(false);
+    const transitionDuration = 200;
 
     function doTransition(index) {
         if (disabled) {
@@ -12,13 +13,14 @@ function Tile (props) {
         setTimeout(() => {
             setTransitioning(false);
             clickFn(index);
-        }, 300);
+        }, transitionDuration);
     }
-    return (<div className={'tile position-absolute ' + 
-        `${isBlank && !transitioning && 'blank' || ''} ${transitioning && transitionClass || ''}`}
+    return (<div className={'tile position-absolute d-flex align-items-center justify-content-center ' + 
+                `${isBlank && !transitioning && 'blank' || ''} ${transitioning && transitionClass || ''}`}
+                style={{transition: `transform ${transitionDuration/1000}s ease`, backgroundColor: tileColor}}
                 onClick={() => doTransition(index)}>
-        ({index})
-        <h3>{val}</h3>
+        {/* ({index}) */}
+        <span className="number">{val}</span>
     </div>);
 }
 
