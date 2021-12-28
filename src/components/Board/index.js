@@ -11,6 +11,7 @@ function Board () {
     const [possibleMoves, setPossibleMoves] = useState([]);
     const [win, setWin] = useState(false);
     const [tileHeight, setTileHeight] = useState(100);
+    const [ready, setReady] = useState(false);
     const colors = ['#4285f4', '#ea4335', '#fbbc05', '#34a853', '#663399'];
     const ref = React.createRef();
 
@@ -51,6 +52,9 @@ function Board () {
 
         setPossibleTiles(availableTileIndexes);
         setPossibleMoves(availableMoves);
+        if (!ready) {
+            setReady(true);
+        }
         return availableMoves;
     }
 
@@ -78,12 +82,14 @@ function Board () {
     }
     
     useEffect(function () {
-        const tileRef = ref.current && ref.current.querySelector('.tile-container');
-        const newTileHeight = tileRef && tileRef.offsetWidth;
-        if (newTileHeight && newTileHeight !== tileHeight) {
-            setTileHeight(newTileHeight);
+        if (ready) {
+            const tileRef = ref.current && ref.current.querySelector('.tile-container');
+            const newTileHeight = tileRef && tileRef.offsetWidth;
+            if (newTileHeight && newTileHeight !== tileHeight) {
+                setTileHeight(newTileHeight);
+            }
         }
-    }, [tiles, ref, tileHeight])
+    }, [ready, ref, tileHeight])
 
     useEffect(function () {
         const randomizeTile = () => {
@@ -118,6 +124,7 @@ function Board () {
             <h3>Possible moves: {possibleMoves.join(', ')}</h3>
             <h3>Possible indexes: {possibleTiles.join(', ')}</h3> */}
             {win && <h3>YOU WIN</h3>}
+            {ready &&
             <Row className="w-100 justify-content-center">
                 <Col xs="12" md="9" lg="7" xl="4">
                     <Row className="board justify-content-center pt-2 pb-4" ref={ref}>
@@ -137,7 +144,7 @@ function Board () {
                             </Col>)}
                     </Row>
                 </Col>
-            </Row>
+            </Row>}
             <div className="mt-auto links-container">
                 <a href="https://github.com/gundwiguna/slide-puzzle" target="_blank">Source</a> • <a href="https://www.linkedin.com/in/anggun-dwiguna-53197511a/" target="_blank">Anggun Dwiguna</a>
             </div>
