@@ -10,7 +10,7 @@ function Board () {
     const [possibleTiles, setPossibleTiles] = useState([]);
     const [possibleMoves, setPossibleMoves] = useState([]);
     const [win, setWin] = useState(false);
-    const [tileHeight, setTileHeight] = useState(100);
+    const [tileHeight, setTileHeight] = useState(0);
     const [ready, setReady] = useState(false);
     const colors = ['#4285f4', '#ea4335', '#fbbc05', '#34a853', '#663399'];
     const ref = React.createRef();
@@ -83,11 +83,13 @@ function Board () {
     
     useEffect(function () {
         if (ready) {
-            const tileRef = ref.current && ref.current.querySelector('.tile-container');
-            const newTileHeight = tileRef && tileRef.offsetWidth;
-            if (newTileHeight && newTileHeight !== tileHeight) {
-                setTileHeight(newTileHeight);
-            }
+            setTimeout(() => {
+                const tileRef = ref.current && ref.current.querySelector('.tile-container');
+                const newTileHeight = tileRef && tileRef.offsetWidth;
+                if (newTileHeight && newTileHeight !== tileHeight) {
+                    setTileHeight(newTileHeight);
+                }
+            }, 300);
         }
     }, [ready, ref, tileHeight])
 
@@ -100,7 +102,7 @@ function Board () {
                     tileNumbers.push(randomNumber);
                 }
             }
-    
+
             // For win debugging
             // for(let i=0; i<=22; i++) {
             //     tileNumbers.push(i);
@@ -114,6 +116,7 @@ function Board () {
         }
     
         randomizeTile();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (<div>
@@ -131,7 +134,7 @@ function Board () {
                         {tiles.map((val, key) => <Col 
                             key={key} 
                             xs={{ span: 2 }}
-                            style={{height: `${tileHeight}px`}}
+                            style={{height: `${tileHeight}px`, transition: 'height 100ms ease'}}
                             className={'p-0 position-relative tile-container ' + ((key+1)%5 === 0 ? 'me-1' : '')}>
                                 <Tile
                                 val={val}
@@ -146,7 +149,7 @@ function Board () {
                 </Col>
             </Row>}
             <div className="mt-auto links-container">
-                <a href="https://github.com/gundwiguna/slide-puzzle" target="_blank">Source</a> • <a href="https://www.linkedin.com/in/anggun-dwiguna-53197511a/" target="_blank">Anggun Dwiguna</a>
+                <a href="https://github.com/gundwiguna/slide-puzzle" rel="noreferrer" target="_blank">Source</a> • <a href="https://www.linkedin.com/in/anggun-dwiguna-53197511a/" rel="noreferrer" target="_blank">Anggun Dwiguna</a>
             </div>
         </div>
         </Container>
