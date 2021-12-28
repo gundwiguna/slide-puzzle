@@ -7,6 +7,7 @@
     height: 100%;
     background-color: cornflowerblue;
     border: 2px solid white;
+    cursor: pointer;
 }
 
 .tile span.number {
