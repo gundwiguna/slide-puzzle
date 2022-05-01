@@ -16,8 +16,9 @@
     color: #fff;
 }
 
-.tile-container {
-    /* height: 100px; */
+.text-italic {
+    font-style: italic;
+    font-size: 0.75rem;
 }
 
 .blank {

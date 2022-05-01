@@ -1,0 +1,24 @@
+.share-buttons-container {
+    position: fixed;
+    bottom: -100px;
+    width: 100vw;
+    background-color: #fff;
+    box-shadow: 0px -10px 10px 0px #eee;
+    transition: ease 1s bottom;
+}
+
+.share-buttons-container.enter {
+    bottom: 0;
+}
+
+.share-buttons-container button {
+    white-space: nowrap;
+}
+
+.close-share {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0 5px 0 0;
+    color: #ccc;
+}
